@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+</head>
+<body>
+    <input type="number" id="timeInput" placeholder="Enter time in seconds">
+    <button onclick="startTimer()">Start</button>
+    <h1 id="timer">00:00</h1>
+
+    <script>
+        let countdown;
+
+        function startTimer() {
+            let seconds = document.getElementById("timeInput").value;
+            clearInterval(countdown);
+            updateDisplay(seconds);
+
+            countdown = setInterval(() => {
+                seconds--;
+                updateDisplay(seconds);
+                if (seconds <= 0) {
+                    clearInterval(countdown);
+                    document.getElementById("timer").textContent = "Time's Up!";
+                    new Audio("alarm.mp3").play(); // Optional: Add alarm sound
+                }
+            }, 1000);
+        }
+
+        function updateDisplay(seconds) {
+            let min = Math.floor(seconds / 60);
+            let sec = seconds % 60;
+            document.getElementById("timer").textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>
